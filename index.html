@@ -2,106 +2,97 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For Kavya ❤️</title>
+<title>Kavya ❤️ Ashok</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #ff5f6d, #ffc371);
-    color: white;
-    overflow: hidden;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    text-align: center;
+    overflow-x: hidden;
 }
 
 .container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    padding: 20px;
 }
 
-/* Kavya image */
+h1 {
+    color: #fff;
+    font-size: 28px;
+}
+
 #kavyaImg {
-    width: 360px;
-    height: 360px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 8px solid white;
-    box-shadow: 0 0 40px rgba(255,255,255,0.9);
-    animation: beat 1.5s infinite;
+    width: 220px;
+    border-radius: 20px;
+    margin: 20px auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
-
-@keyframes beat {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-h1 { font-size: 36px; margin: 10px 0; }
-p { font-size: 22px; }
 
 #buttons {
     margin-top: 20px;
-    position: relative;
-    height: 120px;
-    width: 100%;
 }
 
 button {
-    padding: 14px 36px;
-    font-size: 20px;
-    border: none;
+    padding: 12px 28px;
+    font-size: 18px;
     border-radius: 30px;
+    border: none;
     cursor: pointer;
+    margin: 10px;
 }
 
-#yes {
-    background: #ff0033;
+#yesBtn {
+    background: #ff4d6d;
     color: white;
 }
 
-#no {
+#noBtn {
     background: white;
-    color: black;
+    color: #333;
     position: absolute;
-    left: 55%;
-    top: 10px;
 }
 
-#message {
+#loveText {
     display: none;
-    margin-top: 25px;
-    font-size: 22px;
-    white-space: pre-line;
-}
-
-/* WhatsApp button (always visible) */
-#whatsappBtn {
-    background: #25D366;
     color: white;
-    margin-top: 20px;
+    font-size: 22px;
+    margin-top: 30px;
 }
 
-/* Ashok overlay */
+#popup {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 12px 20px;
+    border-radius: 30px;
+    display: none;
+    font-weight: bold;
+    z-index: 1000;
+}
+
 #ashokOverlay {
     position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.75);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
     display: none;
     align-items: center;
     justify-content: center;
-    z-index: 999;
+    z-index: 2000;
 }
 
 #ashokOverlay img {
-    width: 360px;
-    height: 360px;
+    width: 320px;
+    height: 320px;
     border-radius: 50%;
-    border: 7px solid white;
-    box-shadow: 0 0 50px rgba(255,255,255,0.9);
+    border: 6px solid white;
+    box-shadow: 0 0 50px white;
     animation: zoomFade 3s forwards;
 }
 
@@ -111,109 +102,69 @@ button {
     80% { transform: scale(1.05); opacity: 1; }
     100% { transform: scale(1.2); opacity: 0; }
 }
-
-/* Funny popup */
-#popup {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: white;
-    color: black;
-    padding: 14px 22px;
-    border-radius: 20px;
-    display: none;
-    font-size: 18px;
-    z-index: 1000;
-    cursor: pointer;
-    text-align: center;
-}
 </style>
 </head>
 
 <body>
 
 <div class="container">
-    <img id="kavyaImg" src="kavya.jpg">
+    <h1>Kavya ❤️ Will you be my Valentine?</h1>
 
-    <h1>Kavya 💖</h1>
-    <p id="question">Will you be my Valentine? 🌹</p>
+    <img id="kavyaImg" src="kavya.jpg" alt="Kavya">
 
     <div id="buttons">
-        <button id="yes">Yes 😍</button>
-        <button id="no">No 🙈</button>
+        <button id="yesBtn">YES 💖</button>
+        <button id="noBtn">No 🙈</button>
     </div>
 
-    <div id="message"></div>
-
-    <!-- Send YES always available -->
-    <button id="whatsappBtn" onclick="sendWhatsApp()">Send YES 💌</button>
+    <div id="loveText">Best option you chose ❤️<br>I love you Kavya 💕</div>
 </div>
 
-<!-- Ashok Photo -->
+<div id="popup"></div>
+
 <div id="ashokOverlay">
-    <img src="ashok.jpg">
+    <img src="ashok.jpg" alt="Ashok">
 </div>
-
-<!-- Funny popup -->
-<div id="popup" onclick="sendWhatsApp()"></div>
 
 <audio id="music" src="song.mp3"></audio>
 
 <script>
-const noBtn = document.getElementById("no");
-const yesBtn = document.getElementById("yes");
-const overlay = document.getElementById("ashokOverlay");
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
 const popup = document.getElementById("popup");
 const music = document.getElementById("music");
-const messageBox = document.getElementById("message");
+const loveText = document.getElementById("loveText");
+const overlay = document.getElementById("ashokOverlay");
 
-/* NO button loop (ordered, infinite) */
-const noTexts = [
-    "No 🙈",
-    "Are you sure? 😜",
-    "Think again 🤭",
-    "Really? 😏",
-    "Last chance 🥺"
-];
-
+/* NO button funny movement */
+const noTexts = ["No 🙈","Are you sure? 😜","Think again 🤭","Really? 😏","Last chance"];
 let noIndex = 0;
 
-function moveNoButton() {
+noBtn.addEventListener("mouseover", () => {
+    noBtn.style.top = Math.random() * 80 + "%";
+    noBtn.style.left = Math.random() * 80 + "%";
     noBtn.innerText = noTexts[noIndex];
     noIndex = (noIndex + 1) % noTexts.length;
-
-    noBtn.style.left = Math.random() * 70 + "%";
-    noBtn.style.top = Math.random() * 70 + "px";
-}
-
-noBtn.addEventListener("mouseover", moveNoButton);
-noBtn.addEventListener("click", moveNoButton);
+});
 
 /* YES click */
 yesBtn.addEventListener("click", () => {
     music.play();
+    loveText.style.display = "block";
 
-    document.getElementById("buttons").style.display = "none";
-    document.getElementById("question").style.display = "none";
-
-    typeLoveMessage();
-    startAshokLoop();
     startPopupLoop();
+    startAshokLoop();
+
+    setTimeout(() => {
+        alert("See WhatsApp 😄");
+        window.open(
+          "https://wa.me/918328016917?text=YES%20I%20will%20be%20your%20Valentine%20❤️",
+          "_blank"
+        );
+    }, 2000);
 });
 
-/* Ashok photo every 15 sec */
-function startAshokLoop() {
-    showAshok();
-    setInterval(showAshok, 15000);
-}
-
-function showAshok() {
-    overlay.style.display = "flex";
-    setTimeout(() => overlay.style.display = "none", 3000);
-}
-
-/* Random funny Telugu popups every 10 sec */
+/* Sequential Telugu popup loop */
 function startPopupLoop() {
     const messages = [
         "Navvindhi chalu 😜 reply ivvu",
@@ -225,10 +176,12 @@ function startPopupLoop() {
         "WhatsApp open chesi YES pampu ❤️"
     ];
 
+    let index = 0;
+
     setInterval(() => {
-        const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-        popup.innerText = randomMsg;
+        popup.innerText = messages[index];
         popup.style.display = "block";
+        index = (index + 1) % messages.length;
 
         setTimeout(() => {
             popup.style.display = "none";
@@ -236,31 +189,14 @@ function startPopupLoop() {
     }, 10000);
 }
 
-/* Typing love message */
-function typeLoveMessage() {
-    const text =
-`🥰 Best option you chose!
-
-Kavya…
-Navvu choosthe chaalu
-naa world motham bright aipothundi ❤️
-
-Forever — Ashok 😌`;
-
-    let i = 0;
-    messageBox.style.display = "block";
-    messageBox.innerHTML = "";
-
-    const typing = setInterval(() => {
-        messageBox.innerHTML += text.charAt(i++);
-        if (i >= text.length) clearInterval(typing);
-    }, 40);
-}
-
-/* WhatsApp */
-function sendWhatsApp() {
-    const msg = encodeURIComponent("YES ❤️ I choose you Ashok 😘");
-    window.open("https://wa.me/918328016917?text=" + msg, "_blank");
+/* Ashok photo every 15 sec */
+function startAshokLoop() {
+    setInterval(() => {
+        overlay.style.display = "flex";
+        setTimeout(() => {
+            overlay.style.display = "none";
+        }, 3000);
+    }, 15000);
 }
 </script>
 
