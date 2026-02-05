@@ -11,7 +11,6 @@ body {
     font-family: 'Segoe UI', sans-serif;
     background: linear-gradient(135deg, #ff758c, #ff7eb3);
     color: white;
-    text-align: center;
     overflow: hidden;
 }
 
@@ -21,26 +20,28 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 
 /* 💖 BIG PHOTO */
 img {
-    width: 320px;
-    height: 320px;
+    width: 420px;
+    height: 420px;
     border-radius: 50%;
     object-fit: cover;
-    border: 6px solid white;
-    box-shadow: 0 0 30px rgba(255,255,255,0.8);
+    border: 8px solid white;
+    box-shadow: 0 0 40px rgba(255,255,255,0.9);
+    margin-bottom: 20px;
 }
 
 h1 {
-    margin: 15px 0 5px;
-    font-size: 34px;
+    font-size: 36px;
+    margin: 5px 0;
 }
 
 p {
     font-size: 22px;
-    margin: 10px;
+    margin: 10px 0;
 }
 
 .buttons {
@@ -48,7 +49,7 @@ p {
 }
 
 button {
-    padding: 14px 32px;
+    padding: 14px 36px;
     font-size: 20px;
     border: none;
     border-radius: 30px;
@@ -73,22 +74,17 @@ button {
     font-size: 24px;
 }
 
-/* ❤️ hearts animation */
+/* ❤️ floating hearts */
 .heart {
     position: fixed;
     bottom: -20px;
-    font-size: 26px;
+    font-size: 28px;
     animation: float 4s linear infinite;
 }
 
 @keyframes float {
     0% { transform: translateY(0); opacity: 1; }
     100% { transform: translateY(-900px); opacity: 0; }
-}
-
-/* 🎵 hidden youtube */
-iframe {
-    display: none;
 }
 </style>
 </head>
@@ -113,16 +109,13 @@ iframe {
     </div>
 </div>
 
-<!-- 🎶 Telugu romantic song (YouTube) -->
-<iframe id="song"
-src="https://www.youtube.com/embed/8FAUEv_E_xQ?autoplay=1"
-allow="autoplay">
-</iframe>
+<!-- 🎵 Local Telugu song -->
+<audio id="music" src="song.mp3"></audio>
 
 <script>
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
-const song = document.getElementById("song");
+const music = document.getElementById("music");
 
 noBtn.addEventListener("mouseover", () => {
     noBtn.style.left = Math.random() * (window.innerWidth - 100) + "px";
@@ -131,7 +124,7 @@ noBtn.addEventListener("mouseover", () => {
 
 yesBtn.addEventListener("click", () => {
     document.getElementById("message").style.display = "block";
-    song.style.display = "block"; // play song
+    music.play(); // 🎶 plays for sure
 
     setInterval(() => {
         const heart = document.createElement("div");
