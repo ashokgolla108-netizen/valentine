@@ -140,7 +140,7 @@ button {
     <button id="whatsapp" onclick="sendWhatsApp()">Send YES 💌</button>
 </div>
 
-<!-- Ashok Photo Overlay -->
+<!-- Ashok overlay -->
 <div id="ashokOverlay">
     <img src="ashok.jpg" alt="Ashok">
 </div>
@@ -152,6 +152,7 @@ const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 const music = document.getElementById("music");
 const messageBox = document.getElementById("message");
+const overlay = document.getElementById("ashokOverlay");
 
 const noTexts = [
     "No 🙈",
@@ -162,6 +163,7 @@ const noTexts = [
 ];
 
 let noIndex = 0;
+let ashokInterval;
 
 noBtn.addEventListener("mouseover", () => {
     noBtn.innerText = noTexts[noIndex];
@@ -177,16 +179,27 @@ yesBtn.addEventListener("click", () => {
     document.getElementById("buttons").style.display = "none";
     document.getElementById("question").style.display = "none";
 
-    const overlay = document.getElementById("ashokOverlay");
+    startAshokLoop();
+    typeLoveMessage();
+
+    document.getElementById("whatsapp").style.display = "inline-block";
+});
+
+function startAshokLoop() {
+    showAshok(); // show immediately
+
+    ashokInterval = setInterval(() => {
+        showAshok();
+    }, 6000); // every 6s (3s visible + 3s gap)
+}
+
+function showAshok() {
     overlay.style.display = "flex";
 
     setTimeout(() => {
         overlay.style.display = "none";
     }, 3000);
-
-    typeLoveMessage();
-    document.getElementById("whatsapp").style.display = "inline-block";
-});
+}
 
 function typeLoveMessage() {
     const text =
