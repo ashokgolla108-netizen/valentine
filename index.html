@@ -46,6 +46,7 @@ p { font-size: 22px; }
     margin-top: 20px;
     position: relative;
     height: 120px;
+    width: 100%;
 }
 
 button {
@@ -59,7 +60,6 @@ button {
 #yes {
     background: #ff0033;
     color: white;
-    margin-right: 20px;
 }
 
 #no {
@@ -104,11 +104,19 @@ button {
     100% { transform: scale(1.2); opacity: 0; }
 }
 
-#whatsapp {
+/* Popup */
+#popup {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    color: black;
+    padding: 15px 25px;
+    border-radius: 20px;
     display: none;
-    background: #25D366;
-    color: white;
-    margin-top: 20px;
+    font-size: 18px;
+    z-index: 1000;
 }
 </style>
 </head>
@@ -127,11 +135,15 @@ button {
     </div>
 
     <div id="message"></div>
-    <button id="whatsapp" onclick="sendWhatsApp()">Send YES 💌</button>
 </div>
 
 <div id="ashokOverlay">
     <img src="ashok.jpg">
+</div>
+
+<div id="popup">
+    Navvindhi chalu 😜<br>
+    <b>Send YES meedha click chesi reply pampu</b>
 </div>
 
 <audio id="music" src="song.mp3"></audio>
@@ -140,6 +152,7 @@ button {
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 const overlay = document.getElementById("ashokOverlay");
+const popup = document.getElementById("popup");
 const music = document.getElementById("music");
 const messageBox = document.getElementById("message");
 
@@ -154,28 +167,37 @@ const noTexts = [
 let noIndex = 0;
 let ashokInterval;
 
-noBtn.addEventListener("mouseover", () => {
+// STRICT ORDER LOOP
+function moveNoButton() {
     noBtn.innerText = noTexts[noIndex];
     noIndex = (noIndex + 1) % noTexts.length;
 
     noBtn.style.left = Math.random() * 70 + "%";
-    noBtn.style.top = Math.random() * 60 + "px";
-});
+    noBtn.style.top = Math.random() * 70 + "px";
+}
+
+noBtn.addEventListener("mouseover", moveNoButton);
+noBtn.addEventListener("click", moveNoButton);
 
 yesBtn.addEventListener("click", () => {
     music.play();
+
     document.getElementById("buttons").style.display = "none";
     document.getElementById("question").style.display = "none";
 
-    startAshokLoop();
     typeLoveMessage();
+    startAshokLoop();
 
-    document.getElementById("whatsapp").style.display = "inline-block";
+    // popup after 10 sec
+    setTimeout(() => {
+        popup.style.display = "block";
+        popup.onclick = sendWhatsApp;
+    }, 10000);
 });
 
 function startAshokLoop() {
     showAshok();
-    ashokInterval = setInterval(showAshok, 10000);
+    ashokInterval = setInterval(showAshok, 15000);
 }
 
 function showAshok() {
@@ -188,10 +210,10 @@ function typeLoveMessage() {
 `🥰 Best option you chose!
 
 Kavya…
-Nuvvu naa life lo vachina roju nunchi
-naa world maripoyindi ❤️
+Navvu choosthe chaalu
+naa day set aipothundi ❤️
 
-Forever & always — Ashok 😌`;
+Forever — Ashok 😌`;
 
     let i = 0;
     messageBox.style.display = "block";
@@ -204,9 +226,8 @@ Forever & always — Ashok 😌`;
 }
 
 function sendWhatsApp() {
-    alert("😂😂 See WhatsApp now!");
     const msg = encodeURIComponent("YES ❤️ I choose you Ashok 😘");
-    window.open("https://wa.me/8328016917?text=" + msg, "_blank");
+    window.open("https://wa.me/918328016917?text=" + msg, "_blank");
 }
 </script>
 
