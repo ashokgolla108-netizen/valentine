@@ -23,10 +23,9 @@ body {
     text-align: center;
 }
 
-/* Kavya image */
 #kavyaImg {
-    width: 380px;
-    height: 380px;
+    width: 360px;
+    height: 360px;
     border-radius: 50%;
     object-fit: cover;
     border: 8px solid white;
@@ -40,19 +39,13 @@ body {
     100% { transform: scale(1); }
 }
 
-h1 {
-    font-size: 36px;
-    margin: 12px 0 5px;
-}
-
-p {
-    font-size: 22px;
-    margin: 10px 0;
-}
+h1 { font-size: 36px; }
+p { font-size: 22px; }
 
 #buttons {
     margin-top: 20px;
     position: relative;
+    height: 120px;
 }
 
 button {
@@ -61,35 +54,33 @@ button {
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    margin: 10px;
 }
 
 #yes {
     background: #ff0033;
     color: white;
+    margin-right: 20px;
 }
 
 #no {
     background: white;
     color: black;
     position: absolute;
+    left: 55%;
+    top: 10px;
 }
 
 #message {
     display: none;
     margin-top: 25px;
     font-size: 22px;
-    max-width: 90%;
     white-space: pre-line;
 }
 
 /* Ashok overlay */
 #ashokOverlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: rgba(0,0,0,0.75);
     display: none;
     align-items: center;
@@ -125,7 +116,7 @@ button {
 <body>
 
 <div class="container">
-    <img id="kavyaImg" src="kavya.jpg" alt="Kavya">
+    <img id="kavyaImg" src="kavya.jpg">
 
     <h1>Kavya 💖</h1>
     <p id="question">Will you be my Valentine? 🌹</p>
@@ -136,13 +127,11 @@ button {
     </div>
 
     <div id="message"></div>
-
     <button id="whatsapp" onclick="sendWhatsApp()">Send YES 💌</button>
 </div>
 
-<!-- Ashok overlay -->
 <div id="ashokOverlay">
-    <img src="ashok.jpg" alt="Ashok">
+    <img src="ashok.jpg">
 </div>
 
 <audio id="music" src="song.mp3"></audio>
@@ -150,9 +139,9 @@ button {
 <script>
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
+const overlay = document.getElementById("ashokOverlay");
 const music = document.getElementById("music");
 const messageBox = document.getElementById("message");
-const overlay = document.getElementById("ashokOverlay");
 
 const noTexts = [
     "No 🙈",
@@ -169,13 +158,12 @@ noBtn.addEventListener("mouseover", () => {
     noBtn.innerText = noTexts[noIndex];
     noIndex = (noIndex + 1) % noTexts.length;
 
-    noBtn.style.left = Math.random() * (window.innerWidth - 120) + "px";
-    noBtn.style.top = Math.random() * (window.innerHeight - 120) + "px";
+    noBtn.style.left = Math.random() * 70 + "%";
+    noBtn.style.top = Math.random() * 60 + "px";
 });
 
 yesBtn.addEventListener("click", () => {
     music.play();
-
     document.getElementById("buttons").style.display = "none";
     document.getElementById("question").style.display = "none";
 
@@ -186,19 +174,13 @@ yesBtn.addEventListener("click", () => {
 });
 
 function startAshokLoop() {
-    showAshok(); // show immediately
-
-    ashokInterval = setInterval(() => {
-        showAshok();
-    }, 6000); // every 6s (3s visible + 3s gap)
+    showAshok();
+    ashokInterval = setInterval(showAshok, 10000);
 }
 
 function showAshok() {
     overlay.style.display = "flex";
-
-    setTimeout(() => {
-        overlay.style.display = "none";
-    }, 3000);
+    setTimeout(() => overlay.style.display = "none", 3000);
 }
 
 function typeLoveMessage() {
@@ -207,25 +189,24 @@ function typeLoveMessage() {
 
 Kavya…
 Nuvvu naa life lo vachina roju nunchi
-everything feels special 💕
+naa world maripoyindi ❤️
 
-Naa happiness, naa smile,
-anni nuvve ❤️`;
+Forever & always — Ashok 😌`;
 
     let i = 0;
     messageBox.style.display = "block";
     messageBox.innerHTML = "";
 
-    const interval = setInterval(() => {
-        messageBox.innerHTML += text.charAt(i);
-        i++;
-        if (i >= text.length) clearInterval(interval);
+    const typing = setInterval(() => {
+        messageBox.innerHTML += text.charAt(i++);
+        if (i >= text.length) clearInterval(typing);
     }, 40);
 }
 
 function sendWhatsApp() {
-    const msg = encodeURIComponent("YES ❤️ I choose you 😘");
-    window.open(`https://wa.me/?text=${msg}`, "_blank");
+    alert("😂😂 See WhatsApp now!");
+    const msg = encodeURIComponent("YES ❤️ I choose you Ashok 😘");
+    window.open("https://wa.me/8328016917?text=" + msg, "_blank");
 }
 </script>
 
