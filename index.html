@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Valentine for Kavya</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 80px;
+      background: linear-gradient(#ffe6f0, #fff);
+    }
+    h1 {
+      color: #ff2e63;
+    }
+    button {
+      padding: 12px 25px;
+      font-size: 18px;
+      margin: 15px;
+      cursor: pointer;
+      border-radius: 8px;
+      border: none;
+    }
+    #yes {
+      background-color: #ff4d6d;
+      color: white;
+    }
+    #no {
+      background-color: #ccc;
+      position: absolute;
+    }
+    #message {
+      font-size: 26px;
+      color: #ff1a75;
+      margin-top: 40px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Kavya 💖</h1>
+  <h1>Will you be my Valentine? 💌</h1>
+
+  <button id="yes" onclick="yesClicked()">Yes</button>
+  <button id="no" onmouseover="moveNo()">No</button>
+
+  <div id="message">
+    Best option you choose 😍<br>
+    I love you ❤️💖❤️
+  </div>
+
+  <audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+  <script>
+    function yesClicked() {
+      document.getElementById("message").style.display = "block";
+      document.getElementById("music").play();
+    }
+
+    function moveNo() {
+      const noBtn = document.getElementById("no");
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 100);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+  </script>
+
+</body>
+</html>
