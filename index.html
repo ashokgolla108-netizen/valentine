@@ -1,70 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Valentine for Kavya</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 80px;
-      background: linear-gradient(#ffe6f0, #fff);
-    }
-    h1 {
-      color: #ff2e63;
-    }
-    button {
-      padding: 12px 25px;
-      font-size: 18px;
-      margin: 15px;
-      cursor: pointer;
-      border-radius: 8px;
-      border: none;
-    }
-    #yes {
-      background-color: #ff4d6d;
-      color: white;
-    }
-    #no {
-      background-color: #ccc;
-      position: absolute;
-    }
-    #message {
-      font-size: 26px;
-      color: #ff1a75;
-      margin-top: 40px;
-      display: none;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>For Kavya ❤️</title>
+<style>
+body {
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    height: 100vh;
+    overflow: hidden;
+}
+.container {
+    margin-top: 30px;
+}
+img {
+    width: 220px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+h1 {
+    color: #fff;
+    margin-top: 15px;
+}
+button {
+    padding: 12px 28px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 15px;
+}
+#yes {
+    background-color: #ff4d6d;
+    color: white;
+}
+#no {
+    background-color: #555;
+    color: white;
+    position: absolute;
+}
+#message {
+    display: none;
+    font-size: 26px;
+    color: white;
+    margin-top: 30px;
+}
+.heart {
+    position: fixed;
+    color: red;
+    font-size: 24px;
+    animation: float 4s linear infinite;
+}
+@keyframes float {
+    0% {transform: translateY(0); opacity: 1;}
+    100% {transform: translateY(-800px); opacity: 0;}
+}
+</style>
 </head>
+
 <body>
+<div class="container">
 
-  <h1>Kavya 💖</h1>
-  <h1>Will you be my Valentine? 💌</h1>
+<!-- PHOTO (embedded) -->
+<img src="data:image/jpeg;base64,
+/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxISEhUTEhIVFhUXGBgXFxgXGBgYGBcXGBgYGBcXGBgYHSggGBolHRgYITEhJSkrLi4uGB8zODMsNygtLisBCgoKDg0OGxAQGi0fHyUtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAOEA4QMBIgACEQEDEQH/xAAbAAACAgMBAAAAAAAAAAAAAAAFBgMEAAIHB//EADkQAAEDAwIEAwYEBgMAAAAAAAEAAgMEEQUSITFBBhMiUWFxgZGhI0JSscHR8BUjYnKS4f/EABoBAAMBAQEBAAAAAAAAAAAAAAABAgMEBQb/xAAqEQACAgIBAwMCBgMAAAAAAAAAAQIRAxIhMQQTQVEUYXGB8BQiMqHR4f/aAAwDAQACEQMRAD8A+1REQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREH//Z"
+alt="Kavya">
 
-  <button id="yes" onclick="yesClicked()">Yes</button>
-  <button id="no" onmouseover="moveNo()">No</button>
+<h1>Kavya 💖</h1>
+<h1>Will you be my Valentine? 🌹</h1>
 
-  <div id="message">
-    Best option you choose 😍<br>
-    I love you ❤️💖❤️
-  </div>
+<button id="yes" onclick="yesClicked()">YES ❤️</button>
+<button id="no" onmouseover="moveNo()">NO 😜</button>
 
-  <audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+<div id="message">
+    Best option you chose 😍<br>
+    Nenu ninnu chala ishtapadutunnanu 💕<br>
+    I Love You ❤️❤️❤️
+</div>
 
-  <script>
-    function yesClicked() {
-      document.getElementById("message").style.display = "block";
-      document.getElementById("music").play();
-    }
+<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
 
-    function moveNo() {
-      const noBtn = document.getElementById("no");
-      const x = Math.random() * (window.innerWidth - 100);
-      const y = Math.random() * (window.innerHeight - 100);
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
-    }
-  </script>
+</div>
+
+<script>
+function yesClicked() {
+    document.getElementById("message").style.display = "block";
+    document.getElementById("music").play();
+    setInterval(createHeart, 300);
+}
+
+function moveNo() {
+    const noBtn = document.getElementById("no");
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 100);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.bottom = "0px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 4000);
+}
+</script>
 
 </body>
 </html>
