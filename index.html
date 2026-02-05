@@ -81,13 +81,13 @@ button{
     height:320px;
     border-radius:50%;
     border:6px solid white;
-    animation:zoomFade 10s forwards;
+    animation:zoomFade 20s forwards;
 }
 
 @keyframes zoomFade{
     0%{transform:scale(0.6);opacity:0;}
     10%{opacity:1;}
-    80%{transform:scale(1.05);opacity:1;}
+    85%{transform:scale(1.05);opacity:1;}
     100%{transform:scale(1.2);opacity:0;}
 }
 
@@ -142,7 +142,7 @@ const popup = document.getElementById("popup");
 const music = document.getElementById("music");
 const overlay = document.getElementById("ashokOverlay");
 
-/* NO button romantic teasing */
+/* NO teasing */
 const noTexts = [
     "No 🙈",
     "Are you sure? 😜",
@@ -163,7 +163,6 @@ yesBtn.onclick = () => {
     document.getElementById("loveText").style.display = "block";
     noBtn.style.display = "none";
     sendYesBtn.style.display = "inline-block";
-
     startPopupLoop();
     startAshokLoop();
     startHearts();
@@ -178,7 +177,7 @@ sendYesBtn.onclick = () => {
     );
 };
 
-/* Popup messages – sequential, random position */
+/* Popup messages – 3 sec visible */
 function startPopupLoop(){
     const messages = [
         "Navvindhi chalu 😜 reply ivvu",
@@ -187,28 +186,42 @@ function startPopupLoop(){
         "Phone pakkane petti navvuthunnav kada 😄",
         "YES click cheyadam antha kashtama 🥺",
         "Reply ivvakunda escape avvalevu 😎",
-        "WhatsApp open chesi YES pampu ❤️"
+        "WhatsApp open chesi YES pampu ❤️",
+        "Manasu already cheppindhi… finger mathrame migilindhi 💕",
+        "Ee YES ki oka smile free 😌",
+        "Valentine offer once in a lifetime 💘",
+        "Nee smile choodataniki ee YES saripothundhi 😍",
+        "Oka YES tho oka beautiful story start avuthundhi 💫",
+        "Ee moment ni miss avvakunda YES cheyyi 🥰",
+        "Naa gunde already decide ayipoyindhi ❤️",
+        "Ee Valentine nee kosame special 💖",
+        "Nee reply kosam time slow ayipothundhi 😌",
+        "YES ante chalu… migatha antha magic ✨",
+        "Oka click lo oka lifetime happiness 💕",
+        "Nee navvu ki naa reply ready 😍",
+        "Ee YES ki guarantee smiles only 😄"
     ];
+
     let i = 0;
 
     setInterval(() => {
         popup.innerText = messages[i];
-        popup.style.top = Math.random()*70 + "%";
-        popup.style.left = Math.random()*70 + "%";
+        popup.style.top = Math.random() * 70 + "%";
+        popup.style.left = Math.random() * 70 + "%";
         popup.style.display = "block";
 
         i = (i + 1) % messages.length;
 
-        setTimeout(() => popup.style.display = "none", 5000); // 5 sec
-    }, 10000);
+        setTimeout(() => popup.style.display = "none", 3000);
+    }, 8000);
 }
 
-/* Ashok photo – every 20 sec, visible 10 sec */
+/* Ashok photo – every 25 sec, visible 20 sec */
 function startAshokLoop(){
     setInterval(() => {
         overlay.style.display = "flex";
-        setTimeout(() => overlay.style.display = "none", 10000);
-    }, 20000);
+        setTimeout(() => overlay.style.display = "none", 20000);
+    }, 25000);
 }
 
 /* Floating hearts */
@@ -217,7 +230,7 @@ function startHearts(){
         const heart = document.createElement("div");
         heart.className = "heart";
         heart.innerText = "❤️";
-        heart.style.left = Math.random()*100 + "%";
+        heart.style.left = Math.random() * 100 + "%";
         heart.style.bottom = "0";
         document.body.appendChild(heart);
 
