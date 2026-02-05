@@ -23,10 +23,10 @@ body {
     text-align: center;
 }
 
-/* ❤️ Kavya photo */
-.main-photo {
-    width: 420px;
-    height: 420px;
+/* Kavya image */
+#kavyaImg {
+    width: 380px;
+    height: 380px;
     border-radius: 50%;
     object-fit: cover;
     border: 8px solid white;
@@ -42,7 +42,7 @@ body {
 
 h1 {
     font-size: 36px;
-    margin: 15px 0 5px;
+    margin: 12px 0 5px;
 }
 
 p {
@@ -50,8 +50,9 @@ p {
     margin: 10px 0;
 }
 
-.buttons {
+#buttons {
     margin-top: 20px;
+    position: relative;
 }
 
 button {
@@ -79,30 +80,37 @@ button {
     margin-top: 25px;
     font-size: 22px;
     max-width: 90%;
+    white-space: pre-line;
 }
 
-/* ❤️ Emoji */
-.emoji {
+/* Ashok overlay */
+#ashokOverlay {
     position: fixed;
-    bottom: -30px;
-    font-size: 28px;
-    animation: float 4s linear infinite;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.75);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
 }
 
-/* 🖼️ Ashok floating photo */
-.ashok {
-    position: fixed;
-    bottom: -50px;
-    width: 90px;
-    height: 90px;
+#ashokOverlay img {
+    width: 360px;
+    height: 360px;
     border-radius: 50%;
-    animation: float 5s linear infinite;
-    border: 3px solid white;
+    border: 7px solid white;
+    box-shadow: 0 0 50px rgba(255,255,255,0.9);
+    animation: zoomFade 3s forwards;
 }
 
-@keyframes float {
-    0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-900px); opacity: 0; }
+@keyframes zoomFade {
+    0% { transform: scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    80% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1.2); opacity: 0; }
 }
 
 #whatsapp {
@@ -117,12 +125,12 @@ button {
 <body>
 
 <div class="container">
-    <img src="kavya.jpg" class="main-photo" alt="Kavya">
+    <img id="kavyaImg" src="kavya.jpg" alt="Kavya">
 
-    <h1 id="title">Kavya 💖</h1>
+    <h1>Kavya 💖</h1>
     <p id="question">Will you be my Valentine? 🌹</p>
 
-    <div class="buttons" id="buttons">
+    <div id="buttons">
         <button id="yes">Yes 😍</button>
         <button id="no">No 🙈</button>
     </div>
@@ -130,6 +138,11 @@ button {
     <div id="message"></div>
 
     <button id="whatsapp" onclick="sendWhatsApp()">Send YES 💌</button>
+</div>
+
+<!-- Ashok Photo Overlay -->
+<div id="ashokOverlay">
+    <img src="ashok.jpg" alt="Ashok">
 </div>
 
 <audio id="music" src="song.mp3"></audio>
@@ -140,7 +153,6 @@ const yesBtn = document.getElementById("yes");
 const music = document.getElementById("music");
 const messageBox = document.getElementById("message");
 
-/* 🔁 EXACT ORDER LOOP */
 const noTexts = [
     "No 🙈",
     "Are you sure? 😜",
@@ -148,47 +160,32 @@ const noTexts = [
     "Really? 😏",
     "Last chance 🥺"
 ];
+
 let noIndex = 0;
 
 noBtn.addEventListener("mouseover", () => {
     noBtn.innerText = noTexts[noIndex];
     noIndex = (noIndex + 1) % noTexts.length;
 
-    noBtn.style.left = Math.random() * (window.innerWidth - 140) + "px";
-    noBtn.style.top = Math.random() * (window.innerHeight - 140) + "px";
+    noBtn.style.left = Math.random() * (window.innerWidth - 120) + "px";
+    noBtn.style.top = Math.random() * (window.innerHeight - 120) + "px";
 });
 
-/* ❤️ YES CLICK */
 yesBtn.addEventListener("click", () => {
     music.play();
 
-    // remove question & buttons
     document.getElementById("buttons").style.display = "none";
     document.getElementById("question").style.display = "none";
 
+    const overlay = document.getElementById("ashokOverlay");
+    overlay.style.display = "flex";
+
+    setTimeout(() => {
+        overlay.style.display = "none";
+    }, 3000);
+
     typeLoveMessage();
     document.getElementById("whatsapp").style.display = "inline-block";
-
-    // emoji + Ashok photo rain
-    setInterval(() => {
-        // emojis
-        const emojis = ["❤️","😘","🤗","💋","💖"];
-        const e = document.createElement("div");
-        e.className = "emoji";
-        e.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
-        e.style.left = Math.random() * 100 + "vw";
-        document.body.appendChild(e);
-        setTimeout(() => e.remove(), 4000);
-
-        // Ashok photo
-        const a = document.createElement("img");
-        a.src = "ashok.jpg";
-        a.className = "ashok";
-        a.style.left = Math.random() * 100 + "vw";
-        document.body.appendChild(a);
-        setTimeout(() => a.remove(), 5000);
-
-    }, 350);
 });
 
 function typeLoveMessage() {
