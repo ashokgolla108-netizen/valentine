@@ -10,17 +10,14 @@ body{
     margin:0;
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg,#ff758c,#ff7eb3);
+    overflow:hidden;
     text-align:center;
     color:white;
 }
 
-.container{
-    padding:20px;
-}
+.container{ padding:20px; }
 
-h1{
-    font-size:28px;
-}
+h1{ font-size:28px; }
 
 #kavyaImg{
     width:220px;
@@ -38,15 +35,8 @@ button{
     margin:10px;
 }
 
-#yesBtn{
-    background:#ff003c;
-    color:white;
-}
-
-#noBtn{
-    background:white;
-    color:#333;
-}
+#yesBtn{ background:#ff003c; color:white; }
+#noBtn{ background:white; color:#333; }
 
 #sendYesBtn{
     display:none;
@@ -60,19 +50,19 @@ button{
     margin-top:20px;
 }
 
+/* Popup text */
 #popup{
     position:fixed;
-    bottom:20px;
-    left:50%;
-    transform:translateX(-50%);
     background:white;
     color:#333;
     padding:12px 20px;
     border-radius:25px;
     display:none;
     font-weight:bold;
+    z-index:1000;
 }
 
+/* Ashok overlay */
 #ashokOverlay{
     position:fixed;
     top:0;
@@ -83,7 +73,7 @@ button{
     display:none;
     align-items:center;
     justify-content:center;
-    z-index:999;
+    z-index:2000;
 }
 
 #ashokOverlay img{
@@ -91,14 +81,27 @@ button{
     height:320px;
     border-radius:50%;
     border:6px solid white;
-    animation:zoomFade 3s forwards;
+    animation:zoomFade 10s forwards;
 }
 
 @keyframes zoomFade{
     0%{transform:scale(0.6);opacity:0;}
-    20%{opacity:1;}
+    10%{opacity:1;}
     80%{transform:scale(1.05);opacity:1;}
     100%{transform:scale(1.2);opacity:0;}
+}
+
+/* Floating hearts */
+.heart{
+    position:fixed;
+    font-size:24px;
+    animation:floatUp 6s linear forwards;
+    opacity:0.8;
+}
+
+@keyframes floatUp{
+    from{ transform:translateY(0); opacity:1; }
+    to{ transform:translateY(-120vh); opacity:0; }
 }
 </style>
 </head>
@@ -139,6 +142,7 @@ const popup = document.getElementById("popup");
 const music = document.getElementById("music");
 const overlay = document.getElementById("ashokOverlay");
 
+/* NO button romantic teasing */
 const noTexts = [
     "No 🙈",
     "Are you sure? 😜",
@@ -153,15 +157,19 @@ noBtn.onclick = () => {
     noIndex = (noIndex + 1) % noTexts.length;
 };
 
+/* YES click */
 yesBtn.onclick = () => {
     music.play();
-    document.getElementById("loveText").style.display="block";
-    noBtn.style.display="none";
-    sendYesBtn.style.display="inline-block";
+    document.getElementById("loveText").style.display = "block";
+    noBtn.style.display = "none";
+    sendYesBtn.style.display = "inline-block";
+
     startPopupLoop();
     startAshokLoop();
+    startHearts();
 };
 
+/* WhatsApp send */
 sendYesBtn.onclick = () => {
     alert("Navvindhi chalu 😄 WhatsApp lo YES pampu");
     window.open(
@@ -170,9 +178,9 @@ sendYesBtn.onclick = () => {
     );
 };
 
-/* Infinite sequential popup messages */
+/* Popup messages – sequential, random position */
 function startPopupLoop(){
-    const messages=[
+    const messages = [
         "Navvindhi chalu 😜 reply ivvu",
         "Inka entha sepu reply ivvadaniki 🤭",
         "Unnava leda 😏",
@@ -181,23 +189,40 @@ function startPopupLoop(){
         "Reply ivvakunda escape avvalevu 😎",
         "WhatsApp open chesi YES pampu ❤️"
     ];
+    let i = 0;
 
-    let i=0;
-    setInterval(()=>{
-        popup.innerText=messages[i];
-        popup.style.display="block";
-        i=(i+1)%messages.length;
+    setInterval(() => {
+        popup.innerText = messages[i];
+        popup.style.top = Math.random()*70 + "%";
+        popup.style.left = Math.random()*70 + "%";
+        popup.style.display = "block";
 
-        setTimeout(()=>popup.style.display="none",4000);
-    },10000);
+        i = (i + 1) % messages.length;
+
+        setTimeout(() => popup.style.display = "none", 5000); // 5 sec
+    }, 10000);
 }
 
-/* Ashok photo infinite loop */
+/* Ashok photo – every 20 sec, visible 10 sec */
 function startAshokLoop(){
-    setInterval(()=>{
-        overlay.style.display="flex";
-        setTimeout(()=>overlay.style.display="none",3000);
-    },15000);
+    setInterval(() => {
+        overlay.style.display = "flex";
+        setTimeout(() => overlay.style.display = "none", 10000);
+    }, 20000);
+}
+
+/* Floating hearts */
+function startHearts(){
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerText = "❤️";
+        heart.style.left = Math.random()*100 + "%";
+        heart.style.bottom = "0";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 6000);
+    }, 1200);
 }
 </script>
 
