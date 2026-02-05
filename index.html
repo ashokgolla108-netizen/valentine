@@ -23,6 +23,7 @@ body {
     text-align: center;
 }
 
+/* Kavya image */
 #kavyaImg {
     width: 360px;
     height: 360px;
@@ -39,7 +40,7 @@ body {
     100% { transform: scale(1); }
 }
 
-h1 { font-size: 36px; }
+h1 { font-size: 36px; margin: 10px 0; }
 p { font-size: 22px; }
 
 #buttons {
@@ -77,6 +78,13 @@ button {
     white-space: pre-line;
 }
 
+/* WhatsApp button (always visible) */
+#whatsappBtn {
+    background: #25D366;
+    color: white;
+    margin-top: 20px;
+}
+
 /* Ashok overlay */
 #ashokOverlay {
     position: fixed;
@@ -104,7 +112,7 @@ button {
     100% { transform: scale(1.2); opacity: 0; }
 }
 
-/* Popup */
+/* Funny popup */
 #popup {
     position: fixed;
     bottom: 30px;
@@ -112,11 +120,13 @@ button {
     transform: translateX(-50%);
     background: white;
     color: black;
-    padding: 15px 25px;
+    padding: 14px 22px;
     border-radius: 20px;
     display: none;
     font-size: 18px;
     z-index: 1000;
+    cursor: pointer;
+    text-align: center;
 }
 </style>
 </head>
@@ -135,16 +145,18 @@ button {
     </div>
 
     <div id="message"></div>
+
+    <!-- Send YES always available -->
+    <button id="whatsappBtn" onclick="sendWhatsApp()">Send YES 💌</button>
 </div>
 
+<!-- Ashok Photo -->
 <div id="ashokOverlay">
     <img src="ashok.jpg">
 </div>
 
-<div id="popup">
-    Navvindhi chalu 😜<br>
-    <b>Send YES meedha click chesi reply pampu</b>
-</div>
+<!-- Funny popup -->
+<div id="popup" onclick="sendWhatsApp()"></div>
 
 <audio id="music" src="song.mp3"></audio>
 
@@ -156,6 +168,7 @@ const popup = document.getElementById("popup");
 const music = document.getElementById("music");
 const messageBox = document.getElementById("message");
 
+/* NO button loop (ordered, infinite) */
 const noTexts = [
     "No 🙈",
     "Are you sure? 😜",
@@ -165,9 +178,7 @@ const noTexts = [
 ];
 
 let noIndex = 0;
-let ashokInterval;
 
-// STRICT ORDER LOOP
 function moveNoButton() {
     noBtn.innerText = noTexts[noIndex];
     noIndex = (noIndex + 1) % noTexts.length;
@@ -179,6 +190,7 @@ function moveNoButton() {
 noBtn.addEventListener("mouseover", moveNoButton);
 noBtn.addEventListener("click", moveNoButton);
 
+/* YES click */
 yesBtn.addEventListener("click", () => {
     music.play();
 
@@ -187,17 +199,13 @@ yesBtn.addEventListener("click", () => {
 
     typeLoveMessage();
     startAshokLoop();
-
-    // popup after 10 sec
-    setTimeout(() => {
-        popup.style.display = "block";
-        popup.onclick = sendWhatsApp;
-    }, 10000);
+    startPopupLoop();
 });
 
+/* Ashok photo every 15 sec */
 function startAshokLoop() {
     showAshok();
-    ashokInterval = setInterval(showAshok, 15000);
+    setInterval(showAshok, 15000);
 }
 
 function showAshok() {
@@ -205,13 +213,37 @@ function showAshok() {
     setTimeout(() => overlay.style.display = "none", 3000);
 }
 
+/* Random funny Telugu popups every 10 sec */
+function startPopupLoop() {
+    const messages = [
+        "Navvindhi chalu 😜 reply ivvu",
+        "Inka entha sepu reply ivvadaniki 🤭",
+        "Unnava leda 😏",
+        "Phone pakkane petti navvuthunnav kada 😄",
+        "YES click cheyadam antha kashtama 🥺",
+        "Reply ivvakunda escape avvalevu 😎",
+        "WhatsApp open chesi YES pampu ❤️"
+    ];
+
+    setInterval(() => {
+        const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+        popup.innerText = randomMsg;
+        popup.style.display = "block";
+
+        setTimeout(() => {
+            popup.style.display = "none";
+        }, 4000);
+    }, 10000);
+}
+
+/* Typing love message */
 function typeLoveMessage() {
     const text =
 `🥰 Best option you chose!
 
 Kavya…
 Navvu choosthe chaalu
-naa day set aipothundi ❤️
+naa world motham bright aipothundi ❤️
 
 Forever — Ashok 😌`;
 
@@ -225,6 +257,7 @@ Forever — Ashok 😌`;
     }, 40);
 }
 
+/* WhatsApp */
 function sendWhatsApp() {
     const msg = encodeURIComponent("YES ❤️ I choose you Ashok 😘");
     window.open("https://wa.me/918328016917?text=" + msg, "_blank");
