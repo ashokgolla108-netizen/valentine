@@ -9,7 +9,7 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    background: linear-gradient(135deg, #ff5f6d, #ffc371);
     color: white;
     overflow: hidden;
 }
@@ -21,9 +21,10 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
+    padding: 10px;
 }
 
-/* 💖 BIG PHOTO */
+/* ❤️ HEARTBEAT PHOTO */
 img {
     width: 420px;
     height: 420px;
@@ -31,12 +32,18 @@ img {
     object-fit: cover;
     border: 8px solid white;
     box-shadow: 0 0 40px rgba(255,255,255,0.9);
-    margin-bottom: 20px;
+    animation: beat 1.5s infinite;
+}
+
+@keyframes beat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
 
 h1 {
     font-size: 36px;
-    margin: 5px 0;
+    margin: 10px 0 5px;
 }
 
 p {
@@ -71,11 +78,12 @@ button {
 #message {
     display: none;
     margin-top: 25px;
-    font-size: 24px;
+    font-size: 22px;
+    max-width: 90%;
 }
 
-/* ❤️ floating hearts */
-.heart {
+/* 💖 Emoji rain */
+.emoji {
     position: fixed;
     bottom: -20px;
     font-size: 28px;
@@ -85,6 +93,13 @@ button {
 @keyframes float {
     0% { transform: translateY(0); opacity: 1; }
     100% { transform: translateY(-900px); opacity: 0; }
+}
+
+#whatsapp {
+    display: none;
+    background: #25D366;
+    color: white;
+    margin-top: 20px;
 }
 </style>
 </head>
@@ -102,39 +117,79 @@ button {
         <button id="no">No 🙈</button>
     </div>
 
-    <div id="message">
-        <p>🥰 Best option you chose</p>
-        <p>నిన్ను నా జీవితాంతం ప్రేమిస్తాను 💕</p>
-        <p>I Love You Kavya ❤️❤️❤️</p>
-    </div>
+    <div id="message"></div>
+
+    <button id="whatsapp" onclick="sendWhatsApp()">Send YES 💌</button>
 </div>
 
-<!-- 🎵 Local Telugu song -->
 <audio id="music" src="song.mp3"></audio>
 
 <script>
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 const music = document.getElementById("music");
+const messageBox = document.getElementById("message");
+
+const noTexts = [
+    "No 🙈",
+    "Are you sure? 😜",
+    "Think again 🤭",
+    "Ayyo Kavya 😅",
+    "Last chance 🥺"
+];
 
 noBtn.addEventListener("mouseover", () => {
-    noBtn.style.left = Math.random() * (window.innerWidth - 100) + "px";
-    noBtn.style.top = Math.random() * (window.innerHeight - 100) + "px";
+    alert("😂 Kavya… NO button ni touch cheyakandi!");
+    noBtn.innerText = noTexts[Math.floor(Math.random() * noTexts.length)];
+    noBtn.style.left = Math.random() * (window.innerWidth - 120) + "px";
+    noBtn.style.top = Math.random() * (window.innerHeight - 120) + "px";
 });
 
 yesBtn.addEventListener("click", () => {
-    document.getElementById("message").style.display = "block";
-    music.play(); // 🎶 plays for sure
+    music.play();
+    typeLoveMessage();
+    document.getElementById("whatsapp").style.display = "inline-block";
 
     setInterval(() => {
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.innerHTML = "❤️";
-        heart.style.left = Math.random() * 100 + "vw";
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 4000);
-    }, 250);
+        const emojis = ["❤️","😘","🤗","💋","💖"];
+        const e = document.createElement("div");
+        e.className = "emoji";
+        e.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
+        e.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(e);
+        setTimeout(() => e.remove(), 4000);
+    }, 200);
 });
+
+function typeLoveMessage() {
+    const text = 
+`🥰 Best option you chose!
+
+Kavya…
+Nuvvu naa life lo vachina roju nunchi
+everything feels special 💕
+
+Naa happiness, naa smile,
+anni nuvve ❤️
+
+Screenshot teesukoni
+proof pampandi 😜`;
+
+    let i = 0;
+    messageBox.style.display = "block";
+    messageBox.innerHTML = "";
+
+    const interval = setInterval(() => {
+        messageBox.innerHTML += text.charAt(i);
+        i++;
+        if (i >= text.length) clearInterval(interval);
+    }, 40);
+}
+
+function sendWhatsApp() {
+    const msg = encodeURIComponent("YES ❤️ I choose you 😘");
+    window.open(`https://wa.me/?text=${msg}`, "_blank");
+}
 </script>
 
 </body>
