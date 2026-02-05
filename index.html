@@ -6,113 +6,132 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-    body {
-        margin: 0;
-        font-family: 'Arial', sans-serif;
-        background: linear-gradient(135deg, #ff758c, #ff7eb3);
-        text-align: center;
-        color: white;
-        overflow: hidden;
-    }
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
 
-    .container {
-        padding: 20px;
-        margin-top: 40px;
-    }
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
-    img {
-        width: 220px;
-        height: 220px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 5px solid white;
-        box-shadow: 0 0 20px rgba(255,255,255,0.7);
-    }
+/* 💖 BIG PHOTO */
+img {
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 6px solid white;
+    box-shadow: 0 0 30px rgba(255,255,255,0.8);
+}
 
-    h1 {
-        margin-top: 20px;
-        font-size: 28px;
-    }
+h1 {
+    margin: 15px 0 5px;
+    font-size: 34px;
+}
 
-    p {
-        font-size: 18px;
-        margin-bottom: 30px;
-    }
+p {
+    font-size: 22px;
+    margin: 10px;
+}
 
-    button {
-        padding: 12px 25px;
-        font-size: 18px;
-        border: none;
-        border-radius: 25px;
-        cursor: pointer;
-        margin: 10px;
-    }
+.buttons {
+    margin-top: 20px;
+}
 
-    #yes {
-        background: #ff0033;
-        color: white;
-    }
+button {
+    padding: 14px 32px;
+    font-size: 20px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 10px;
+}
 
-    #no {
-        background: white;
-        color: black;
-        position: absolute;
-    }
+#yes {
+    background: #ff0033;
+    color: white;
+}
 
-    #message {
-        font-size: 22px;
-        margin-top: 30px;
-        display: none;
-    }
+#no {
+    background: white;
+    color: black;
+    position: absolute;
+}
 
-    .heart {
-        position: fixed;
-        bottom: -10px;
-        font-size: 20px;
-        animation: float 4s linear infinite;
-    }
+#message {
+    display: none;
+    margin-top: 25px;
+    font-size: 24px;
+}
 
-    @keyframes float {
-        0% { transform: translateY(0); opacity: 1; }
-        100% { transform: translateY(-700px); opacity: 0; }
-    }
+/* ❤️ hearts animation */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 26px;
+    animation: float 4s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-900px); opacity: 0; }
+}
+
+/* 🎵 hidden youtube */
+iframe {
+    display: none;
+}
 </style>
 </head>
 
 <body>
 
 <div class="container">
-    <!-- PHOTO -->
     <img src="kavya.jpg" alt="Kavya">
 
-    <h1>Kavya ❤️</h1>
-    <p>Will you be my Valentine? 💕</p>
+    <h1>Kavya 💖</h1>
+    <p>Will you be my Valentine? 🌹</p>
 
-    <button id="yes" onclick="yesClicked()">Yes 💖</button>
-    <button id="no" onmouseover="moveNo()">No 🙈</button>
+    <div class="buttons">
+        <button id="yes">Yes 😍</button>
+        <button id="no">No 🙈</button>
+    </div>
 
     <div id="message">
-        <p>🥰 Best option you chose!</p>
-        <p>నిన్ను నా జీవితాంతం ప్రేమిస్తాను ❤️</p>
-        <p>I Love You Kavya 💖💖</p>
+        <p>🥰 Best option you chose</p>
+        <p>నిన్ను నా జీవితాంతం ప్రేమిస్తాను 💕</p>
+        <p>I Love You Kavya ❤️❤️❤️</p>
     </div>
 </div>
 
-<!-- TELUGU SONG -->
-<audio id="song" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
+<!-- 🎶 Telugu romantic song (YouTube) -->
+<iframe id="song"
+src="https://www.youtube.com/embed/8FAUEv_E_xQ?autoplay=1"
+allow="autoplay">
+</iframe>
 
 <script>
-function moveNo() {
-    const no = document.getElementById("no");
-    no.style.left = Math.random() * (window.innerWidth - 100) + "px";
-    no.style.top = Math.random() * (window.innerHeight - 100) + "px";
-}
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const song = document.getElementById("song");
 
-function yesClicked() {
+noBtn.addEventListener("mouseover", () => {
+    noBtn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+    noBtn.style.top = Math.random() * (window.innerHeight - 100) + "px";
+});
+
+yesBtn.addEventListener("click", () => {
     document.getElementById("message").style.display = "block";
-    document.getElementById("song").play();
+    song.style.display = "block"; // play song
 
     setInterval(() => {
         const heart = document.createElement("div");
@@ -121,8 +140,8 @@ function yesClicked() {
         heart.style.left = Math.random() * 100 + "vw";
         document.body.appendChild(heart);
         setTimeout(() => heart.remove(), 4000);
-    }, 300);
-}
+    }, 250);
+});
 </script>
 
 </body>
