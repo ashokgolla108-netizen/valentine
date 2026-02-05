@@ -2,105 +2,103 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Kavya ❤️ Ashok</title>
+<title>Valentine ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-    text-align: center;
-    overflow-x: hidden;
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#ff758c,#ff7eb3);
+    text-align:center;
+    color:white;
 }
 
-.container {
-    padding: 20px;
+.container{
+    padding:20px;
 }
 
-h1 {
-    color: #fff;
-    font-size: 28px;
+h1{
+    font-size:28px;
 }
 
-#kavyaImg {
-    width: 220px;
-    border-radius: 20px;
-    margin: 20px auto;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+#kavyaImg{
+    width:220px;
+    border-radius:20px;
+    margin:20px 0;
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
 }
 
-#buttons {
-    margin-top: 20px;
+button{
+    padding:12px 26px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    margin:10px;
 }
 
-button {
-    padding: 12px 28px;
-    font-size: 18px;
-    border-radius: 30px;
-    border: none;
-    cursor: pointer;
-    margin: 10px;
+#yesBtn{
+    background:#ff003c;
+    color:white;
 }
 
-#yesBtn {
-    background: #ff4d6d;
-    color: white;
+#noBtn{
+    background:white;
+    color:#333;
 }
 
-#noBtn {
-    background: white;
-    color: #333;
-    position: absolute;
+#sendYesBtn{
+    display:none;
+    background:#25D366;
+    color:white;
 }
 
-#loveText {
-    display: none;
-    color: white;
-    font-size: 22px;
-    margin-top: 30px;
+#loveText{
+    display:none;
+    font-size:22px;
+    margin-top:20px;
 }
 
-#popup {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: white;
-    padding: 12px 20px;
-    border-radius: 30px;
-    display: none;
-    font-weight: bold;
-    z-index: 1000;
+#popup{
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:white;
+    color:#333;
+    padding:12px 20px;
+    border-radius:25px;
+    display:none;
+    font-weight:bold;
 }
 
-#ashokOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.7);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 2000;
+#ashokOverlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:999;
 }
 
-#ashokOverlay img {
-    width: 320px;
-    height: 320px;
-    border-radius: 50%;
-    border: 6px solid white;
-    box-shadow: 0 0 50px white;
-    animation: zoomFade 3s forwards;
+#ashokOverlay img{
+    width:320px;
+    height:320px;
+    border-radius:50%;
+    border:6px solid white;
+    animation:zoomFade 3s forwards;
 }
 
-@keyframes zoomFade {
-    0% { transform: scale(0.6); opacity: 0; }
-    20% { opacity: 1; }
-    80% { transform: scale(1.05); opacity: 1; }
-    100% { transform: scale(1.2); opacity: 0; }
+@keyframes zoomFade{
+    0%{transform:scale(0.6);opacity:0;}
+    20%{opacity:1;}
+    80%{transform:scale(1.05);opacity:1;}
+    100%{transform:scale(1.2);opacity:0;}
 }
 </style>
 </head>
@@ -108,22 +106,27 @@ button {
 <body>
 
 <div class="container">
-    <h1>Kavya ❤️ Will you be my Valentine?</h1>
+    <h1>Will you be my Valentine? ❤️</h1>
 
-    <img id="kavyaImg" src="kavya.jpg" alt="Kavya">
+    <img id="kavyaImg" src="kavya.jpg">
 
     <div id="buttons">
         <button id="yesBtn">YES 💖</button>
         <button id="noBtn">No 🙈</button>
     </div>
 
-    <div id="loveText">Best option you chose ❤️<br>I love you Kavya 💕</div>
+    <div id="loveText">
+        Best option you chose ❤️<br>
+        I love you Kavya 💕
+    </div>
+
+    <button id="sendYesBtn">Send YES 💌</button>
 </div>
 
 <div id="popup"></div>
 
 <div id="ashokOverlay">
-    <img src="ashok.jpg" alt="Ashok">
+    <img src="ashok.jpg">
 </div>
 
 <audio id="music" src="song.mp3"></audio>
@@ -131,42 +134,45 @@ button {
 <script>
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
+const sendYesBtn = document.getElementById("sendYesBtn");
 const popup = document.getElementById("popup");
 const music = document.getElementById("music");
-const loveText = document.getElementById("loveText");
 const overlay = document.getElementById("ashokOverlay");
 
-/* NO button funny movement */
-const noTexts = ["No 🙈","Are you sure? 😜","Think again 🤭","Really? 😏","Last chance"];
+const noTexts = [
+    "No 🙈",
+    "Are you sure? 😜",
+    "Think again 🤭",
+    "Really? 😏",
+    "Last chance ❤️"
+];
 let noIndex = 0;
 
-noBtn.addEventListener("mouseover", () => {
-    noBtn.style.top = Math.random() * 80 + "%";
-    noBtn.style.left = Math.random() * 80 + "%";
+noBtn.onclick = () => {
     noBtn.innerText = noTexts[noIndex];
     noIndex = (noIndex + 1) % noTexts.length;
-});
+};
 
-/* YES click */
-yesBtn.addEventListener("click", () => {
+yesBtn.onclick = () => {
     music.play();
-    loveText.style.display = "block";
-
+    document.getElementById("loveText").style.display="block";
+    noBtn.style.display="none";
+    sendYesBtn.style.display="inline-block";
     startPopupLoop();
     startAshokLoop();
+};
 
-    setTimeout(() => {
-        alert("See WhatsApp 😄");
-        window.open(
-          "https://wa.me/918328016917?text=YES%20I%20will%20be%20your%20Valentine%20❤️",
-          "_blank"
-        );
-    }, 2000);
-});
+sendYesBtn.onclick = () => {
+    alert("Navvindhi chalu 😄 WhatsApp lo YES pampu");
+    window.open(
+        "https://wa.me/918328016917?text=YES%20❤️%20I%20will%20be%20your%20Valentine",
+        "_blank"
+    );
+};
 
-/* Sequential Telugu popup loop */
-function startPopupLoop() {
-    const messages = [
+/* Infinite sequential popup messages */
+function startPopupLoop(){
+    const messages=[
         "Navvindhi chalu 😜 reply ivvu",
         "Inka entha sepu reply ivvadaniki 🤭",
         "Unnava leda 😏",
@@ -176,27 +182,22 @@ function startPopupLoop() {
         "WhatsApp open chesi YES pampu ❤️"
     ];
 
-    let index = 0;
+    let i=0;
+    setInterval(()=>{
+        popup.innerText=messages[i];
+        popup.style.display="block";
+        i=(i+1)%messages.length;
 
-    setInterval(() => {
-        popup.innerText = messages[index];
-        popup.style.display = "block";
-        index = (index + 1) % messages.length;
-
-        setTimeout(() => {
-            popup.style.display = "none";
-        }, 4000);
-    }, 10000);
+        setTimeout(()=>popup.style.display="none",4000);
+    },10000);
 }
 
-/* Ashok photo every 15 sec */
-function startAshokLoop() {
-    setInterval(() => {
-        overlay.style.display = "flex";
-        setTimeout(() => {
-            overlay.style.display = "none";
-        }, 3000);
-    }, 15000);
+/* Ashok photo infinite loop */
+function startAshokLoop(){
+    setInterval(()=>{
+        overlay.style.display="flex";
+        setTimeout(()=>overlay.style.display="none",3000);
+    },15000);
 }
 </script>
 
