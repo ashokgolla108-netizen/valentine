@@ -50,7 +50,6 @@ button{
     margin-top:20px;
 }
 
-/* Popup text */
 #popup{
     position:fixed;
     background:white;
@@ -62,7 +61,6 @@ button{
     z-index:1000;
 }
 
-/* Floating hearts */
 .heart{
     position:fixed;
     font-size:24px;
@@ -108,6 +106,8 @@ const sendYesBtn = document.getElementById("sendYesBtn");
 const popup = document.getElementById("popup");
 const music = document.getElementById("music");
 
+let yesClicked = false;
+
 /* NO teasing */
 const noTexts = [
     "No 🙈",
@@ -125,6 +125,7 @@ noBtn.onclick = () => {
 
 /* YES click */
 yesBtn.onclick = () => {
+    yesClicked = true;
     music.play();
     document.getElementById("loveText").style.display = "block";
     noBtn.style.display = "none";
@@ -133,17 +134,17 @@ yesBtn.onclick = () => {
     startHearts();
 };
 
-/* WhatsApp send */
+/* Manual WhatsApp send */
 sendYesBtn.onclick = () => {
-    alert("Navvindhi chalu 😄 WhatsApp lo YES pampu");
     window.open(
         "https://wa.me/918328016917?text=YES%20❤️%20I%20will%20be%20your%20Valentine",
         "_blank"
     );
 };
 
-/* Popup messages – 3 sec visible */
+/* Popup loop with auto redirect */
 function startPopupLoop(){
+
     const messages = [
         "Navvindhi chalu 😜 reply ivvu",
         "Inka entha sepu reply ivvadaniki 🤭",
@@ -169,16 +170,31 @@ function startPopupLoop(){
 
     let i = 0;
 
-    setInterval(() => {
+    const interval = setInterval(() => {
+
         popup.innerText = messages[i];
         popup.style.top = Math.random() * 70 + "%";
         popup.style.left = Math.random() * 70 + "%";
         popup.style.display = "block";
 
-        i = (i + 1) % messages.length;
+        setTimeout(() => {
+            popup.style.display = "none";
+        }, 3000);
 
-        setTimeout(() => popup.style.display = "none", 3000);
-    }, 8000);
+        i++;
+
+        if(i === messages.length){
+            clearInterval(interval);
+
+            setTimeout(() => {
+                if(!yesClicked){
+                    window.location.href =
+                    "https://wa.me/918328016917?text=YES%20❤️%20I%20will%20be%20your%20Valentine";
+                }
+            }, 3500);
+        }
+
+    }, 4000);
 }
 
 /* Floating hearts */
