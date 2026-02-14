@@ -88,8 +88,8 @@ button{
     </div>
 
     <div id="loveText">
-        That’s a wonderful decision 💖”<br>
-                I love you Kavya 💕
+        That’s a wonderful decision 💖<br>
+        I love you Kavya 💕
     </div>
 
     <button id="sendYesBtn">Send YES 💌</button>
@@ -106,7 +106,7 @@ const sendYesBtn = document.getElementById("sendYesBtn");
 const popup = document.getElementById("popup");
 const music = document.getElementById("music");
 
-let yesClicked = false;
+let sendClicked = false;
 
 /* NO teasing */
 const noTexts = [
@@ -125,7 +125,6 @@ noBtn.onclick = () => {
 
 /* YES click */
 yesBtn.onclick = () => {
-    yesClicked = true;
     music.play();
     document.getElementById("loveText").style.display = "block";
     noBtn.style.display = "none";
@@ -134,15 +133,14 @@ yesBtn.onclick = () => {
     startHearts();
 };
 
-/* Manual WhatsApp send */
+/* Send YES click */
 sendYesBtn.onclick = () => {
-    window.open(
-        "https://wa.me/918328016917?text=YES%20❤️%20I%20will%20be%20your%20Valentine",
-        "_blank"
-    );
+    sendClicked = true;
+    window.location.href =
+    "https://wa.me/918328016917?text=YES%20❤️%20I%20will%20be%20your%20Valentine";
 };
 
-/* Popup loop with auto redirect */
+/* Popup loop + auto redirect */
 function startPopupLoop(){
 
     const messages = [
@@ -187,11 +185,11 @@ function startPopupLoop(){
             clearInterval(interval);
 
             setTimeout(() => {
-                if(!yesClicked){
+                if(!sendClicked){
                     window.location.href =
                     "https://wa.me/918328016917?text=YES%20❤️%20I%20will%20be%20your%20Valentine";
                 }
-            }, 3500);
+            }, 3000);
         }
 
     }, 4000);
