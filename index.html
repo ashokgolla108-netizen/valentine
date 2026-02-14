@@ -62,35 +62,6 @@ button{
     z-index:1000;
 }
 
-/* Ashok overlay */
-#ashokOverlay{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.7);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:2000;
-}
-
-#ashokOverlay img{
-    width:320px;
-    height:320px;
-    border-radius:50%;
-    border:6px solid white;
-    animation:zoomFade 20s forwards;
-}
-
-@keyframes zoomFade{
-    0%{transform:scale(0.6);opacity:0;}
-    10%{opacity:1;}
-    85%{transform:scale(1.05);opacity:1;}
-    100%{transform:scale(1.2);opacity:0;}
-}
-
 /* Floating hearts */
 .heart{
     position:fixed;
@@ -128,10 +99,6 @@ button{
 
 <div id="popup"></div>
 
-<div id="ashokOverlay">
-    <img src="ashok.jpg">
-</div>
-
 <audio id="music" src="song.mp3"></audio>
 
 <script>
@@ -140,7 +107,6 @@ const noBtn = document.getElementById("noBtn");
 const sendYesBtn = document.getElementById("sendYesBtn");
 const popup = document.getElementById("popup");
 const music = document.getElementById("music");
-const overlay = document.getElementById("ashokOverlay");
 
 /* NO teasing */
 const noTexts = [
@@ -164,7 +130,6 @@ yesBtn.onclick = () => {
     noBtn.style.display = "none";
     sendYesBtn.style.display = "inline-block";
     startPopupLoop();
-    startAshokLoop();
     startHearts();
 };
 
@@ -214,14 +179,6 @@ function startPopupLoop(){
 
         setTimeout(() => popup.style.display = "none", 3000);
     }, 8000);
-}
-
-/* Ashok photo – every 25 sec, visible 20 sec */
-function startAshokLoop(){
-    setInterval(() => {
-        overlay.style.display = "flex";
-        setTimeout(() => overlay.style.display = "none", 20000);
-    }, 25000);
 }
 
 /* Floating hearts */
